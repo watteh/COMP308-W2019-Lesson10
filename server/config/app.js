@@ -94,7 +94,7 @@ let strategy = new JWTStrategy(jwtOptions, (jwt_payload, done) => {
 passport.use(strategy);
 
 app.use('/api', indexRouter);
-app.use('/api/contact-list', contactRouter); //TODO - Protect this section
+app.use('/api/contact-list', passport.authenticate('jwt', { session: false }), contactRouter);
 app.use('/favourite-list', thingRouter);
 
 app.get('*', (req, res) => {
